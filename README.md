@@ -1,4 +1,31 @@
-# Introduction to GitHub
+# CareLink — Rural Oncology Network
+
+CareLink is a responsive care-coordination dashboard concept connecting rural health facilities with a central Cancer Diagnostic Hub (CDH). It gives rural clinicians one place to send secure referrals, track specialist reviews, join teleconsultations, and coordinate local follow-up care.
+
+## Run locally
+
+```bash
+npm start
+```
+
+Then open [http://localhost:4173](http://localhost:4173).
+
+Run the dependency-free smoke test with `npm test`.
+
+## Prototype features
+
+- Referral and care-network overview
+- Active patient referral tracking
+- Upcoming teleconsultation details
+- CDH availability and capacity signals
+- Responsive new-referral workflow with validation and confirmation
+- Mobile navigation and responsive layouts
+
+---
+
+## Repository history
+
+This repository was originally created from GitHub Skills' introductory exercise.
 
 _Get started using GitHub in less than an hour._
 
