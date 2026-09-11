@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#123b35" />
+    <title>CareLink | Rural Oncology Network</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <a class="brand" href="#" aria-label="CareLink home">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span></span>
+          <span>care<span>link</span></span>
+        </a>
+        <div class="facility-card">
+          <span class="facility-icon">RH</span>
+          <div><small>Rural facility</small><strong>Kisoro Health Centre IV</strong></div>
+          <button aria-label="Switch facility">⌄</button>
+        </div>
+        <nav aria-label="Main navigation">
+          <p>Workspace</p>
+          <a class="active" href="#"><span>⌂</span>Overview</a>
+          <a href="#referrals"><span>↗</span>Referrals <b>8</b></a>
+          <a href="#patients"><span>♙</span>Patients</a>
+          <a href="#consultations"><span>◫</span>Consultations <i>2</i></a>
+          <p>Coordination</p>
+          <a href="#messages"><span>✉</span>Messages <i>3</i></a>
+          <a href="#resources"><span>◇</span>Care resources</a>
+          <a href="#analytics"><span>⌁</span>Network insights</a>
+        </nav>
+        <div class="support-card">
+          <span class="headset">?</span>
+          <strong>Need clinical support?</strong>
+          <p>The CDH coordination desk is available 24/7.</p>
+          <button id="callCoordinator">Contact coordinator</button>
+        </div>
+        <div class="profile">
+          <div class="avatar">AN</div>
+          <div><strong>Dr. Amina N.</strong><small>Clinical Officer</small></div>
+          <button aria-label="Profile options">•••</button>
+        </div>
+      </aside>
+
+      <main>
+        <header>
+          <button class="menu-button" id="menuButton" type="button" aria-label="Open menu" aria-controls="sidebar" aria-expanded="false">☰</button>
+          <div class="network-status"><span></span>CDH Network connected</div>
+          <div class="header-actions">
+            <div class="search-wrap" id="searchWrap"><label class="sr-only" for="searchInput">Search referrals</label><input id="searchInput" type="search" placeholder="Search patient or concern" autocomplete="off" /><button class="icon-button" id="searchButton" type="button" aria-label="Search referrals" aria-expanded="false">⌕</button></div>
+            <button class="icon-button notification" aria-label="Notifications">♢<span></span></button>
+            <button class="primary-button open-referral"><span>＋</span>New referral</button>
+          </div>
+        </header>
+
+        <section class="content">
+          <div class="welcome-row">
+            <div><p id="currentDate">FRIDAY, 11 SEPTEMBER</p><h1>Good morning, Dr. Amina</h1><span>Here’s what’s happening across your cancer care network.</span></div>
+            <button class="primary-button mobile-referral open-referral">＋ New referral</button>
+          </div>
+
+          <section class="stats-grid" aria-label="Referral summary">
+            <article><div class="stat-icon coral">↗</div><div><small>Active referrals</small><strong id="activeCount">08</strong><p><span>Live</span> referral list</p></div></article>
+            <article><div class="stat-icon amber">◷</div><div><small>Awaiting CDH review</small><strong id="reviewCount">03</strong><p>Needs hub action</p></div></article>
+            <article><div class="stat-icon green">✓</div><div><small>Consultations completed</small><strong>24</strong><p><span>↑ 18%</span> this month</p></div></article>
+            <article><div class="stat-icon purple">♡</div><div><small>Patients in follow-up</small><strong>16</strong><p>4 visits this week</p></div></article>
+          </section>
+
+          <section class="main-grid">
+            <article class="panel referrals-panel" id="referrals">
+              <div class="panel-heading"><div><h2>Active referrals</h2><p id="referralSummary">Track patients referred to the Cancer Diagnostic Hub</p></div><button class="text-button" id="resetDemo" type="button">Reset demo data</button></div>
+              <div class="table-wrap"><table>
+                <thead><tr><th>Patient</th><th>Clinical concern</th><th>Sent</th><th>Status</th><th></th></tr></thead>
+                <tbody id="referralRows"></tbody>
+              </table></div>
+            </article>
+
+            <aside class="right-column">
+              <article class="panel next-consult">
+                <div class="panel-heading"><div><span class="eyebrow">UP NEXT</span><h2>Teleconsultation</h2></div><span class="live-pill">● In 45 min</span></div>
+                <div class="consult-patient"><span class="patient-avatar p2">BK</span><div><strong>Brian K.</strong><small>Prostate assessment</small></div></div>
+                <div class="consult-detail"><span>▣</span><div><small>Today</small><strong>11:30 – 12:00 EAT</strong></div></div>
+                <div class="consult-detail"><span>♙</span><div><small>CDH specialist</small><strong>Dr. Peter Otieno · Oncology</strong></div></div>
+                <button type="button" class="join-button" id="joinConsultation">Join consultation <span>→</span></button>
+              </article>
+              <article class="panel network-card">
+                <div class="panel-heading"><div><h2>CDH care network</h2><p>Live capacity today</p></div><button>•••</button></div>
+                <div class="network-row"><span class="network-icon">✚</span><div><strong>Diagnostic Hub</strong><small>Kampala · <b>Online</b></small></div><span>2.4h<br><small>response</small></span></div>
+                <div class="network-row"><span class="network-icon lavender">♙</span><div><strong>Oncology specialists</strong><small>6 available today</small></div><span class="faces"><i>PO</i><i>+</i></span></div>
+                <div class="capacity"><div><span>Network capacity</span><strong>76%</strong></div><div class="bar"><span></span></div><small>Good availability for new referrals</small></div>
+              </article>
+            </aside>
+          </section>
+
+          <section class="bottom-grid">
+            <article class="panel followup-card">
+              <div class="panel-heading"><div><h2>Follow-up due this week</h2><p>Patients requiring check-in or local care</p></div><span class="count-badge">4 patients</span></div>
+              <div class="followup-list">
+                <div><span class="patient-avatar p5">RK</span><div><strong>Rose K.</strong><small>Post-chemotherapy check</small></div><time>Today</time></div>
+                <div><span class="patient-avatar p6">DM</span><div><strong>David M.</strong><small>Wound care review</small></div><time>Tomorrow</time></div>
+                <div><span class="patient-avatar p7">EW</span><div><strong>Esther W.</strong><small>Symptom monitoring</small></div><time>14 Sep</time></div>
+              </div>
+            </article>
+            <article class="insight-card"><div class="bulb">✦</div><div><span>CARE INSIGHT</span><h2>Early action makes a difference.</h2><p>Your facility’s average referral-to-review time improved by <strong>31%</strong> this month.</p><a href="#">View network insights →</a></div><div class="rings"></div></article>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal-backdrop" id="referralModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+      <form class="modal" id="referralForm">
+        <div class="modal-header"><div><span>NEW PATIENT REFERRAL</span><h2 id="modalTitle">Connect a patient to CDH</h2><p>Share the essential details for rapid clinical review.</p></div><button type="button" id="closeModal" aria-label="Close">×</button></div>
+        <div class="form-grid">
+          <label>Patient name<input id="patientName" name="patientName" required minlength="2" placeholder="Full name" autocomplete="name" /></label>
+          <label>Age<input id="patientAge" name="patientAge" required type="number" min="0" max="120" placeholder="Years" /></label>
+          <label>Priority<select id="priority" name="priority" required><option>Routine</option><option>Urgent</option></select></label>
+          <label>Contact number<input id="patientPhone" name="patientPhone" type="tel" placeholder="Optional" autocomplete="tel" /></label>
+          <label class="full">Clinical concern<select id="clinicalConcern" name="clinicalConcern" required><option value="">Select a concern</option><option>Suspected breast cancer</option><option>Cervical lesion</option><option>Abnormal prostate exam</option><option>Persistent dysphagia</option><option>Other / uncertain</option></select></label>
+          <label class="full">Clinical summary<textarea id="clinicalSummary" name="clinicalSummary" required minlength="10" rows="4" placeholder="Symptoms, examination findings, tests completed…"></textarea></label>
+        </div>
+        <div class="privacy-note">ⓘ Prototype only: entries are stored in this browser, not sent to a real CDH. A production deployment must use an approved encrypted clinical system.</div>
+        <div class="modal-actions"><button type="button" class="cancel" id="cancelModal">Cancel</button><button class="primary-button" type="submit">Send securely →</button></div>
+      </form>
+    </div>
+    <div class="modal-backdrop" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="detailTitle" aria-hidden="true">
+      <article class="modal detail-modal">
+        <div class="modal-header"><div><span>PATIENT REFERRAL</span><h2 id="detailTitle">Referral details</h2><p id="detailId"></p></div><button type="button" id="closeDetail" aria-label="Close referral details">×</button></div>
+        <dl class="detail-grid" id="detailContent"></dl>
+        <div class="modal-actions"><button type="button" class="cancel" id="closeDetailAction">Close</button><button type="button" class="primary-button" id="advanceStatus">Advance demo status →</button></div>
+      </article>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"><span>✓</span><div><strong>Referral sent securely</strong><small>CDH has been notified for review.</small></div></div>
+    <script src="app.js"></script>
+  </body>
+</html>

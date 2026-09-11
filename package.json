@@ -1,0 +1,10 @@
+{
+  "name": "carelink-rural-oncology",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "python3 -m http.server 4173",
+    "check": "node --check app.js",
+    "test": "python3 tests/smoke_test.py"
+  }
+}
