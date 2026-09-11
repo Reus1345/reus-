@@ -51,7 +51,7 @@
           <button class="menu-button" id="menuButton" type="button" aria-label="Open menu" aria-controls="sidebar" aria-expanded="false">☰</button>
           <div class="network-status"><span></span>CDH Network connected</div>
           <div class="header-actions">
-            <button class="icon-button" aria-label="Search">⌕</button>
+            <div class="search-wrap" id="searchWrap"><label class="sr-only" for="searchInput">Search referrals</label><input id="searchInput" type="search" placeholder="Search patient or concern" autocomplete="off" /><button class="icon-button" id="searchButton" type="button" aria-label="Search referrals" aria-expanded="false">⌕</button></div>
             <button class="icon-button notification" aria-label="Notifications">♢<span></span></button>
             <button class="primary-button open-referral"><span>＋</span>New referral</button>
           </div>
@@ -64,23 +64,18 @@
           </div>
 
           <section class="stats-grid" aria-label="Referral summary">
-            <article><div class="stat-icon coral">↗</div><div><small>Active referrals</small><strong>08</strong><p><span>↑ 2</span> this week</p></div></article>
-            <article><div class="stat-icon amber">◷</div><div><small>Awaiting CDH review</small><strong>03</strong><p>Oldest: <b>18 hours</b></p></div></article>
+            <article><div class="stat-icon coral">↗</div><div><small>Active referrals</small><strong id="activeCount">08</strong><p><span>Live</span> referral list</p></div></article>
+            <article><div class="stat-icon amber">◷</div><div><small>Awaiting CDH review</small><strong id="reviewCount">03</strong><p>Needs hub action</p></div></article>
             <article><div class="stat-icon green">✓</div><div><small>Consultations completed</small><strong>24</strong><p><span>↑ 18%</span> this month</p></div></article>
             <article><div class="stat-icon purple">♡</div><div><small>Patients in follow-up</small><strong>16</strong><p>4 visits this week</p></div></article>
           </section>
 
           <section class="main-grid">
             <article class="panel referrals-panel" id="referrals">
-              <div class="panel-heading"><div><h2>Active referrals</h2><p>Track patients referred to the Cancer Diagnostic Hub</p></div><a href="#">View all <span>→</span></a></div>
+              <div class="panel-heading"><div><h2>Active referrals</h2><p id="referralSummary">Track patients referred to the Cancer Diagnostic Hub</p></div><button class="text-button" id="resetDemo" type="button">Reset demo data</button></div>
               <div class="table-wrap"><table>
                 <thead><tr><th>Patient</th><th>Clinical concern</th><th>Sent</th><th>Status</th><th></th></tr></thead>
-                <tbody>
-                  <tr><td><span class="patient-avatar p1">JM</span><div><strong>Jane M.</strong><small>CL-2026-084 · 42 yrs</small></div></td><td>Suspected breast cancer</td><td>Today, 08:14</td><td><span class="status review">● CDH reviewing</span></td><td><button type="button" class="row-action" aria-label="View Jane M. referral">→</button></td></tr>
-                  <tr><td><span class="patient-avatar p2">BK</span><div><strong>Brian K.</strong><small>CL-2026-079 · 58 yrs</small></div></td><td>Abnormal prostate exam</td><td>Yesterday, 14:30</td><td><span class="status consult">● Consult booked</span></td><td><button type="button" class="row-action" aria-label="View Brian K. referral">→</button></td></tr>
-                  <tr><td><span class="patient-avatar p3">NA</span><div><strong>Naomi A.</strong><small>CL-2026-074 · 36 yrs</small></div></td><td>Cervical lesion</td><td>09 Sep, 11:05</td><td><span class="status info">● More info needed</span></td><td><button type="button" class="row-action" aria-label="View Naomi A. referral">→</button></td></tr>
-                  <tr><td><span class="patient-avatar p4">SO</span><div><strong>Samuel O.</strong><small>CL-2026-068 · 64 yrs</small></div></td><td>Persistent dysphagia</td><td>08 Sep, 09:42</td><td><span class="status plan">● Care plan ready</span></td><td><button type="button" class="row-action" aria-label="View Samuel O. referral">→</button></td></tr>
-                </tbody>
+                <tbody id="referralRows"></tbody>
               </table></div>
             </article>
 
@@ -120,14 +115,23 @@
       <form class="modal" id="referralForm">
         <div class="modal-header"><div><span>NEW PATIENT REFERRAL</span><h2 id="modalTitle">Connect a patient to CDH</h2><p>Share the essential details for rapid clinical review.</p></div><button type="button" id="closeModal" aria-label="Close">×</button></div>
         <div class="form-grid">
-          <label>Patient name<input required placeholder="Full name" /></label>
-          <label>Age<input required type="number" min="0" placeholder="Years" /></label>
-          <label class="full">Clinical concern<select required><option value="">Select a concern</option><option>Suspected breast cancer</option><option>Cervical lesion</option><option>Abnormal prostate exam</option><option>Other / uncertain</option></select></label>
-          <label class="full">Clinical summary<textarea required rows="4" placeholder="Symptoms, examination findings, tests completed…"></textarea></label>
+          <label>Patient name<input id="patientName" name="patientName" required minlength="2" placeholder="Full name" autocomplete="name" /></label>
+          <label>Age<input id="patientAge" name="patientAge" required type="number" min="0" max="120" placeholder="Years" /></label>
+          <label>Priority<select id="priority" name="priority" required><option>Routine</option><option>Urgent</option></select></label>
+          <label>Contact number<input id="patientPhone" name="patientPhone" type="tel" placeholder="Optional" autocomplete="tel" /></label>
+          <label class="full">Clinical concern<select id="clinicalConcern" name="clinicalConcern" required><option value="">Select a concern</option><option>Suspected breast cancer</option><option>Cervical lesion</option><option>Abnormal prostate exam</option><option>Persistent dysphagia</option><option>Other / uncertain</option></select></label>
+          <label class="full">Clinical summary<textarea id="clinicalSummary" name="clinicalSummary" required minlength="10" rows="4" placeholder="Symptoms, examination findings, tests completed…"></textarea></label>
         </div>
-        <div class="privacy-note">⌾ Patient information is encrypted and shared only with the CDH clinical team.</div>
+        <div class="privacy-note">ⓘ Prototype only: entries are stored in this browser, not sent to a real CDH. A production deployment must use an approved encrypted clinical system.</div>
         <div class="modal-actions"><button type="button" class="cancel" id="cancelModal">Cancel</button><button class="primary-button" type="submit">Send securely →</button></div>
       </form>
+    </div>
+    <div class="modal-backdrop" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="detailTitle" aria-hidden="true">
+      <article class="modal detail-modal">
+        <div class="modal-header"><div><span>PATIENT REFERRAL</span><h2 id="detailTitle">Referral details</h2><p id="detailId"></p></div><button type="button" id="closeDetail" aria-label="Close referral details">×</button></div>
+        <dl class="detail-grid" id="detailContent"></dl>
+        <div class="modal-actions"><button type="button" class="cancel" id="closeDetailAction">Close</button><button type="button" class="primary-button" id="advanceStatus">Advance demo status →</button></div>
+      </article>
     </div>
     <div class="toast" id="toast" role="status" aria-live="polite"><span>✓</span><div><strong>Referral sent securely</strong><small>CDH has been notified for review.</small></div></div>
     <script src="app.js"></script>

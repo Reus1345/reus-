@@ -36,7 +36,8 @@ def main():
         assert 'id="joinConsultation"' in html
         assert 'aria-live="polite"' in html
         assert "@media(max-width:760px)" in css
-        assert "showToast('Referral sent securely'" in javascript
+        assert "localStorage.setItem" in javascript
+        assert "renderReferrals" in javascript
         print(f"CareLink smoke test passed at {base_url}")
     finally:
         server.shutdown()
